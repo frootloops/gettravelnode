@@ -24,6 +24,10 @@ app.post('/go', function (req, res) {
     db.close();
   });
 
+  res.redirect('/done');
+});
+
+app.get('/done', function (req, res) {
   res.sendFile(path.join(__dirname+'/done.html'));
 });
 
