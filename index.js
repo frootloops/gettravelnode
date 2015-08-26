@@ -13,12 +13,13 @@ app.get('/go', function (req, res) {
 });
 
 app.post('/go', function (req, res) {
-  MongoClient.connect(process.env.MONGOLAB_URI, function(err, db) {
+  MongoClient.connect("mongodb://127.0.0.1/gettravel", function(err, db) {
     var collection = db.collection('requests');
     var params = { first_name: req.params.first_name,
                     last_name: req.params.last_name,
                         phone: req.params.phone,
-                  device_type: req.params.device_type };
+                  device_type: req.params.device_type,
+                   created_at: new Date() };
     console.log(params)
     collection.insert(params, function(err, result) {});
     db.close();
