@@ -9,6 +9,7 @@
   "author": "Arsen Gasparyan",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.13.3",
     "express": "^4.13.3",
     "forever": "^0.15.1",
     "mongodb": "^2.0.42"

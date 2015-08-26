@@ -2,7 +2,9 @@ var express = require('express');
 var app = express();
 var path = require("path");
 var MongoClient = require('mongodb').MongoClient;
+var bodyParser = require("body-parser");
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname+'/index.html'));
@@ -15,10 +17,10 @@ app.get('/go', function (req, res) {
 app.post('/go', function (req, res) {
   MongoClient.connect("mongodb://127.0.0.1/gettravel", function(err, db) {
     var collection = db.collection('requests');
-    var params = { first_name: req.params('first_name'),
-                    last_name: req.params('last_name'),
-                        phone: req.params('phone'),
-                  device_type: req.params('device_type'),
+    var params = { first_name: req.body.first_name,
+                    last_name: req.body.last_name,
+                        phone: req.body.phone,
+                  device_type: req.body.device_type,
                    created_at: new Date() };
     console.log(params)
     collection.insert(params, function(err, result) {});
