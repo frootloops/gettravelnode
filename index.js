@@ -3,6 +3,7 @@ var app = express();
 var path = require("path");
 var MongoClient = require('mongodb').MongoClient;
 var bodyParser = require("body-parser");
+var http = require('http');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -18,14 +19,20 @@ app.post('/go', function (req, res) {
   MongoClient.connect("mongodb://127.0.0.1/gettravel", function(err, db) {
     var collection = db.collection('requests');
     var params = { first_name: req.body.first_name,
-                    last_name: req.body.last_name,
-                        phone: req.body.phone,
-                  device_type: req.body.device_type,
-                   created_at: new Date() };
+      last_name: req.body.last_name,
+      phone: req.body.phone,
+      device_type: req.body.device_type,
+      created_at: new Date() };
     console.log(params)
     collection.insert(params, function(err, result) {});
+
     db.close();
   });
+
+  http.get({
+    host: 'smsc.ru',
+    path: '/sys/send.php?login=apc&psw=W9EbiYghLie8&phones=79999808630&mes=Call%20me%20' + req.body.phone
+  }, function(response) {});
 
   res.redirect('/done');
 });
