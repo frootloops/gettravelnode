@@ -31,7 +31,7 @@ app.post('/go', function (req, res) {
 
   http.get({
     host: 'smsc.ru',
-    path: '/sys/send.php?login=apc&psw=W9EbiYghLie8&phones=79999808630&mes=Call%20me%20' + req.body.phone
+    path: '/sys/send.php?login=apc&psw=W9EbiYghLie8&phones=to.arsen.gasparyan%40gmail.com&subj=Gettravel&sender=info%40gettravel.co&mes=Call%20me%20' + req.body.phone
   }, function(response) {});
 
   res.redirect('/done');
