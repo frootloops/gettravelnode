@@ -4,7 +4,7 @@ var path = require("path");
 var MongoClient = require('mongodb').MongoClient;
 var bodyParser = require("body-parser");
 var http = require('http');
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', function (req, res) {
@@ -28,11 +28,6 @@ app.post('/go', function (req, res) {
 
     db.close();
   });
-
-  http.get({
-    host: 'smsc.ru',
-    path: '/sys/send.php?login=apc&psw=W9EbiYghLie8&phones=79999808630&mes=Call%20me%20' + req.body.phone
-  }, function(response) {});
 
   res.redirect('/done');
 });
